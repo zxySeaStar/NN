@@ -1,8 +1,13 @@
 from bitarray import bitarray
 import sys
+import random
 def GetData(data):
     d = bitarray('1'*8*4096+ '1111'*6 + '00001001' + '0000'*8 + '00000000' + '00011111' + '00111101' + data)
     return d
+
+def GetRandom(dim):
+    data = bitarray([random.randint(0,1) for i in range(dim) ])
+    return data
 
 def GetHamming(indexData):
     #d = GetData(indexData)
@@ -49,13 +54,16 @@ def GetHamming(indexData):
     return bitarray(result)
 
 if __name__ == "__main__":
-    for i in range(2047432,2047432+30):
-        data = GetData("{:0>32b}".format(i))
-        sys.stdout.write(bitarray("{:0>32b}".format(i)).tobytes().hex()+" ")
-        GetHamming(data)
-    print(int.from_bytes(bytes.fromhex("15a30000"),"big"))
-    print("{:0>32b}".format(int.from_bytes(bytes.fromhex("15a30000"),"big")))
-    print("{:0>32b}".format(int.from_bytes(bytes.fromhex("bd208000"),"big")))
-    print("{:0>32b}".format(int.from_bytes(bytes.fromhex("bd238000"),"big")))
-    print("{:0>32b}".format(int.from_bytes(bytes.fromhex("15a00000"),"big")))
-    #print(bitarray.frombytes(bytes.fromhex("15a30000")))
+    # for i in range(2047432,2047432+30):
+    #     data = GetData("{:0>32b}".format(i))
+    #     sys.stdout.write(bitarray("{:0>32b}".format(i)).tobytes().hex()+" ")
+    #     GetHamming(data)
+    # print(int.from_bytes(bytes.fromhex("15a30000"),"big"))
+    # print("{:0>32b}".format(int.from_bytes(bytes.fromhex("15a30000"),"big")))
+    # print("{:0>32b}".format(int.from_bytes(bytes.fromhex("bd208000"),"big")))
+    # print("{:0>32b}".format(int.from_bytes(bytes.fromhex("bd238000"),"big")))
+    # print("{:0>32b}".format(int.from_bytes(bytes.fromhex("15a00000"),"big")))
+    # #print(bitarray.frombytes(bytes.fromhex("15a30000")))
+    data = GetRandom(20)
+    out = GetHamming(data)
+    print(data,out)
